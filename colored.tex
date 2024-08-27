@@ -1,0 +1,800 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                 %%
+%% Please do not use \input{...} to include other tex files.       %%
+%% Submit your LaTeX manuscript as one .tex document.              %%
+%%                                                                 %%
+%% All additional figures and files should be attached             %%
+%% separately and not embedded in the \TeX\ document itself.       %%
+%%                                                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%\documentclass[referee,sn-basic]{sn-jnl}% referee option is meant for double line spacing
+
+%%=======================================================%%
+%% to print line numbers in the margin use lineno option %%
+%%=======================================================%%
+
+%%\documentclass[lineno,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+
+%%======================================================%%
+%% to compile with pdflatex/xelatex use pdflatex option %%
+%%======================================================%%
+
+%%\documentclass[pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+\RequirePackage{tikz}
+
+\documentclass[preprint,11pt,number]{elsarticle}
+\usepackage[margin=1.8cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{threeparttable}
+
+
+\usepackage{array}
+\usepackage{bm}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{siunitx}
+\usetikzlibrary{calc}
+
+\usepackage{float}
+\floatstyle{plain}
+\newfloat{example}{thp}{lop}
+\floatname{example}{\textsc{Example}}
+
+\newcommand*\circled[1]{\begin{small}\tikz[baseline=(char.base)]{           \node[shape=circle,draw,minimum width=1.3em,inner sep=0.5pt] (char) {#1};}\end{small}}
+
+\usepackage{framed} % Framing content
+\usepackage{multicol} % Multiple columns environment
+
+\biboptions{sort&compress}
+
+% Para nomenclature
+
+\usepackage{nomencl} % Nomenclature package
+\makenomenclature
+\setlength{\nomitemsep}{-\parskip} % Baseline skip between items
+
+\renewcommand*\nompreamble{\begin{multicols}{2}}
+\renewcommand*\nompostamble{\end{multicols}}
+
+% Para label customizada
+\makeatletter
+\newcommand{\labeltext}[3][]{%
+    \@bsphack%
+    \csname phantomsection\endcsname% in case hyperref is used
+    \def\tst{#1}%
+    \def\labelmarkup{}% How to markup the label itself
+    %\def\refmarkup{\labelmarkup}% How to markup the reference
+    \def\refmarkup{}%
+    \ifx\tst\empty\def\@currentlabel{\refmarkup{#2}}{\label{#3}}%
+    \else\def\@currentlabel{\refmarkup{#1}}{\label{#3}}\fi%
+    \@esphack%
+    \labelmarkup{#2}% visible printed text.
+}
+\newcommand\fs@norules{\def\@fs@cfont{\bfseries}\let\@fs@capt\floatc@ruled
+  \def\@fs@pre{}%
+  \def\@fs@post{}%
+  \def\@fs@mid{\kern3pt}%
+  \let\@fs@iftopcapt\iftrue}
+\makeatother
+
+
+\usepackage{amsmath}
+\usepackage{mdframed}
+%%\documentclass[sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
+%%\documentclass[sn-vancouver]{sn-jnl}% Vancouver Reference Style
+%%\documentclass[sn-apa]{sn-jnl}% APA Reference Style
+%%\documentclass[sn-chicago]{sn-jnl}% Chicago-based Humanities Reference Style
+%%\documentclass[sn-standardnature]{sn-jnl}% Standard Nature Portfolio Reference Style
+%%\documentclass[default]{sn-jnl}% Default
+%%\documentclass[default,iicol]{sn-jnl}% Default with double column layout
+
+%%%% Standard Packages
+%%<additional latex packages if required can be included here>
+%%%%
+
+%%%%%=============================================================================%%%%
+%%%%  Remarks: This template is provided to aid authors with the preparation
+%%%%  of original research articles intended for submission to journals published 
+%%%%  by Springer Nature. The guidance has been prepared in partnership with 
+%%%%  production teams to conform to Springer Nature technical requirements. 
+%%%%  Editorial and presentation requirements differ among journal portfolios and 
+%%%%  research disciplines. You may find sections in this template are irrelevant 
+%%%%  to your work and are empowered to omit any such section if allowed by the 
+%%%%  journal you intend to submit to. The submission guidelines and policies 
+%%%%  of the journal take precedence. A detailed User Manual is available in the 
+%%%%  template package for technical guidance.
+%%%%%=============================================================================%%%%
+
+\DeclareSIUnit\bar{bar}
+
+\begin{document}
+
+\title{Unsupervised-ensemble-based method for automatic running-in information extraction in reciprocating compressors}
+
+\author[1]{Gabriel Thaler}\ead{thaler.gabriel@posgrad.ufsc.br}
+
+\author[1]{Ahryman S. B. de S. Nascimento}\ead{a.nascimento@labmetro.ufsc.br}
+
+\author[2]{Antonio L. S. Pacheco}\ead{pacheco@inep.ufsc.br}
+
+\author[3]{Rodolfo C. C. Flesch\corref{cor1}}\ead{rodolfo.flesch@ufsc.br}
+
+\cortext[cor1]{Corresponding author}
+
+\affiliation[1]{organization={Laboratory for Instrumentation and Automation of Tests},
+addressline={Universidade Federal de Santa Catarina},
+postcode={88040-970},
+city={Florianópolis},
+country={Brazil}}
+
+\affiliation[2]{organization={Power Electronics Institute, Department of
+Electrical and Electronic Engineering},
+addressline={Universidade Federal de Santa Catarina},
+postcode={88040-970},
+city={Florianópolis},
+country={Brazil}}
+
+\affiliation[3]{organization={Department of Automation and Systems Engineering},
+addressline={Universidade Federal de Santa Catarina},
+postcode={88040-900},
+city={Florianópolis},
+country={Brazil}}
+
+%%==================================%%
+%% sample for unstructured abstract %%
+%%==================================%%
+
+\begin{abstract}
+This work presents a fully automatic method for extracting running-in information from data of hermetic reciprocating compressors by analyzing clusters of subsequenced time series data. We used the $k$-means, kernel $k$-means, employing both a radial basis function and a novel application of the Mahalanobis radial basis function kernel, and agglomerative hierarchical clustering algorithms for clustering the data. The method is based on an ensemble of single occurrence transition detection models trained considering several parameter combinations and clustering algorithms. We developed a pruning method to identify the most meaningful transitions, discarding models whose results did not relate to the running-in process and allowing for feature interpretation based on the parameters of the remaining models. Experimental evaluation of the proposed method revealed that the electric current of the compressor is the most significant feature for tribological steady state detection and that the Mahalanobis-RBF kernel provides the best results. As a result, the proposed method offers an automated analysis of the running-in duration in hermetic compressors, potentially improving the reliability of compressor tests and saving resources in the preparation process.
+\end{abstract}
+%%================================%%
+%% Sample for structured abstract %%
+%%================================%%
+
+% \abstract{\textbf{Purpose:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Methods:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Results:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Conclusion:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.}
+
+\begin{keyword}
+prognostics and health management \sep virtual sensing \sep hermetic reciprocating compressors \sep running-in \sep nondestructive analysis
+\end{keyword}
+
+%%\pacs[JEL Classification]{D8, H51}
+
+%%\pacs[MSC Classification]{35A01, 65L10, 65L12, 65L20, 65L70}
+
+\maketitle
+
+%\tableofcontents
+
+\begin{table*}[!ht]
+   \begin{framed}
+     \footnotesize
+     \printnomenclature
+   \end{framed}
+\end{table*}
+
+\nomenclature[01]{$C$}{Set of all clusters}
+\nomenclature[02]{$c$}{Cluster for transition detection}
+\nomenclature[03]{$C_e$}{Vector containing the clusters assigned to each sample vector of test $e$ }
+\nomenclature[04]{$D$}{Delay between samples in sliding window}
+\nomenclature[05]{$d\textsubscript{E}$}{Euclidean distance}
+\nomenclature[06]{$d\textsubscript{M}$}{Mahalanobis distance}
+\nomenclature[07]{$F_s$}{Sampling frequency of high-frequency measurements}
+\nomenclature[08]{$I\textsubscript{Kur}$}{Kurtosis of the electric current}
+\nomenclature[09]{$I\textsubscript{RMS}$}{Root mean square value of the electric current}
+\nomenclature[10]{$I\textsubscript{Var}$}{Variance of the electric current}
+\nomenclature[11]{$K^\textsuperscript{RBF}$}{Radial basis function kernel}
+\nomenclature[12]{$\bm{k}$}{Number of clusters}
+\nomenclature[13]{$k$}{Discrete time index}
+\nomenclature[14]{$l\textsubscript{L}$}{Lower proportion threshold for the Low threshold transition detection method}
+\nomenclature[15]{$l\textsubscript{U}$}{Upper proportion threshold for the Upper threshold transition detection method}
+\nomenclature[16]{$M$}{Moving average window size}
+\nomenclature[17]{$\dot{m}$}{Mass flow rate}
+\nomenclature[18]{$N$}{Sliding window size}
+\nomenclature[19]{$n\textsubscript{c}$}{Number of compressors evaluated}
+\nomenclature[20]{$p_c$}{Proportion of cluster $c$ in a given time window}
+\nomenclature[21]{$T$}{Transition instant}
+\nomenclature[22]{$T_e$}{Set of all tests from a given unit}
+\nomenclature[23]{$T_s$}{Sampling period of experimental data}
+\nomenclature[24]{$t$}{Timestamp of a given measurement}
+\nomenclature[25]{$t_e$}{Number of a test in chronological order, with 1 being the running-in test}
+\nomenclature[26]{$t\textsubscript{set}$}{Duration of the natural transition state of compressor tests}
+\nomenclature[27]{$U$}{Set of all compressor units}
+\nomenclature[28]{$u$}{Compressor unit}
+\nomenclature[29]{$V\textsubscript{Lat,Kur}$}{Kurtosis of the lateral axis vibration}
+\nomenclature[30]{$v$}{Experimental standard deviation}
+\nomenclature[31]{$W$}{Time window for proportion of clusters}
+\nomenclature[32]{$\hat{X}$}{Sliding window vector of filtered measurements in delayed space }
+\nomenclature[33]{$\bar{X}$}{Sample vector}
+\nomenclature[34]{$x$}{Measurement of a physical quantity}
+\nomenclature[35]{$\hat{x}$}{Moving average filtered measurement}
+\nomenclature[36]{$x_{\text{HF},i}$}{$i^{th}$ element of an array with 1 second of high-frequency measurements}
+\nomenclature[37]{$\bar{x}_{\text{HF}}$}{Mean of an array of high-frequency measurements}
+\nomenclature[38]{$x_{\text{Kur}}$}{Kurtosis of an array of high-frequency measurements}
+\nomenclature[39]{$x_{\text{RMS}}$}{Root mean square of an array of high-frequency measurements}
+\nomenclature[40]{$x_{\text{Var}}$}{Variance of an array of high-frequency measurements}
+\nomenclature[41]{$\Sigma$}{Covariance matrix}
+\nomenclature[42]{$\sigma$}{Radial basis function kernel width}
+\nomenclature[43]{$\sigma_{\text{c}}$}{Standard deviation of a measured set}
+
+\section{Introduction}\label{sec:Introduction}
+
+The first moments of sliding contact between two surfaces of a mechanism are marked by transient changes in multiple characteristics of the system, such as wear rate, coefficient of friction (COF), and surface roughness. This first stage, known as running-in, occurs only once during the operation of a given system and is succeeded by a tribological steady state \cite{Blau2009}.
+
+In the field of hermetic reciprocating compressors for refrigeration, there are standards such as ISO 917 \cite{ISO917} (currently withdrawn, but still used as reference in the compressor industry) and ANSI/ASHRAE 23 \cite{ASHRAE2005} that describe the procedure for performance tests, including the need to take measurements only after many parameters of interest are in steady state. Still, it is possible that the variables of interest are kept within the desired bounds, but the compressor is not in its tribological steady state yet, which results in a measurement that does not reflect the proper performance parameters. In regular operation, a compressor has a life expectancy of over two decades, therefore it is important to evaluate the performance parameters of the device in tribological conditions as close as possible to the ones it will present during most of its lifetime. Because testing before the compressor is run-in could lead to misleading results, manufacturers run-in all compressor samples before they are tested.
+
+Currently, the most common preparation process in the compressor industry consists of running-in the device at a given condition for a given period, after which it is considered to be in its tribological steady state \cite{Borges2021, Mello2022}. This process is represented in Figure~\ref{fig:diagramaProducao}.
+
+\begin{figure}[!htb]
+\begin{center}
+\includegraphics[width=12.3 cm]{fig1.pdf}    % The printed column width is 8.4 cm.
+\caption{Compressor early life and testing.} 
+\label{fig:diagramaProducao}
+\end{center}
+\end{figure}
+
+Since the preparation period is defined heuristically and without objective indicators of the end of the running-in phenomenon for each compressor unit, it might be the case that it is too long, wasting time and financial resources, or even too short, affecting the results of performance tests. Figure~\ref{fig:calorimetroNorm} presents a case such as the latter, in which 33 compressors of the same model were evaluated in 3 consecutive \SI{3}{\hour} tests after the regular running-in procedure. The test results are the normalized mean value and experimental standard deviation of cooling capacity measurements, one of the main performance parameters of refrigeration compressors. %This preliminary analysis was done in  , and Figure~\ref{fig:calorimetroNorm} presents the results from the tests normalized into a range of [0,1]. The experimental standard deviation of the mean, $v$, is taken as
+% \begin{equation}
+%     v = \frac{\sigma \textsubscript{c}}{\sqrt{n\textsubscript{c}}},
+% \end{equation}
+% \noindent where $\sigma_{\text{c}}$ is the experimental standard deviation of the measured set and $n\textsubscript{c}$ is the number of evaluated compressors.
+
+%Even though the first batch of tests was performed only after preparation of the compressor units by means of the current standard running-in method, there is still a visible difference between results of this batch and the second and third batches.
+
+\begin{figure}[!htb]
+\begin{center}
+\includegraphics[width=9.5 cm]{fig2.pdf}    % The printed column width is 8.4 cm.
+\caption{Mean value and experimental standard deviation of the mean of the normalized cooling capacity in consecutive performance tests.} 
+\label{fig:calorimetroNorm}
+\end{center}
+\end{figure}
+
+Based on the experimental data, it can be stated by means of a two-sample $t$-test, with a significance of 0.05, that the mean cooling capacity obtained in the first test cycle is smaller than the mean of the second round of tests. In addition, it can be stated, with an even lower significance of 0.01, that the mean of the first round of tests is smaller than that of the third round of tests. This behavior can be attributed to the fact that, for some compressor units of the evaluated model, the preparation time for running-in is not sufficient, and the device is still going through this process during the performance tests. This empirical evidence of inefficient preparation time and the guidelines provided by industry standards for compressor performance tests \cite{ASHRAE2005,ISO917} suggest that an automatic method that can detect the end of the running-in period has the potential to save preparation time and avoid wrong measurements.
+
+As pointed in \cite{Argatov2023}, which presents a wear rate predictive analysis of the running-in period based on the load in a pin-to-disk dataset using time-delay neural network models, even the running-in regime in tribopairs has remained a long-standing problem in tribology. The extensive review provided in \cite{Khonsari2021} reinforces this proposition, with most experimental running-in analyses investigating friction, lubrication, topography, and wear behaviors, generally directed toward tribopairs, which rarely translate to analyses of complex machinery \cite{Blau1991}. In addition, current state-of-the-art methods for estimating the running-in state, such as the one proposed in the friction machine studies in \cite{Vojtov2019}, require direct analysis of the sliding surfaces to extract wear and friction data. Since compressors are comprised of many moving parts and most of them are hermetically sealed, this analysis is not possible, since they would require breaking their seal and disassembling the internal components, which after reassembly would require a new running-in before reaching steady state again.
+
+An option for trying to solve this problem, is using variables which can be measured during the compressor operation, such as pressure and vibration signals, and trying to propose a correlation with the tribological state of the compressor. In literature, this approach has already been used for non-invasive fault and anomaly detection in reciprocating compressors, such as in \cite{Zhang2022MSSP}, which provides a framework for extracting hidden features of the vibration during compressor operation. An analysis of the divergence of these features in a transformed space may indicate faults. Some other relevant works are presented in the reviews in \cite{Gangsar2020, Gangsar2022}. While both the running-in and some types of faults share some characteristics, such as abnormal wear rate and changes in surface topography, fault and anomaly methods described in compressor literature do not apply to the running-in detection problem \cite{Blau2005}.
+
+As in other anomaly detection cases, extracting patterns that represent the running-in phenomenon might be possible using unsupervised learning. However, while popular clustering methods such as $k$-means have been used in anomaly detection frameworks for rotating and reciprocating machinery \cite{Li2020,Liu2022}, they might not provide useful representations when applied to subsequenced time series, which are useful for preserving temporal features of an experimental dataset \cite{Keogh2005}. Alternatives for extracting these patterns are kernel clustering methods such as kernel $k$-means, whose kernel can be chosen for different applications \cite{Zolhavarieh2014, Dhillon2004}. One of such applications is the clustering of datasets using the Mahalanobis distance. This metric incorporates the covariance of the dataset in the distance and is employed in state-of-the-art methods for health management of machinery \cite{Chen2024,Zhang2024}. Even though the Mahalanobis distance has already been used as a kernel \cite{Yao2021}, to the best of the authors' knowledge, it has never been used in the field of unsupervised learning.
+
+Literature on running-in evaluation methods presents a clear research gap. On the one hand, there are well-established effects of the phenomenon on the performance and efficiency of mechanical systems, but there are no guidelines for its detection and evaluation \cite{Blau2005}. On the other hand, there are state-of-the-art methods for direct analysis of the phenomenon based on parameters such as friction and surface topography \cite{Argatov2023,Khonsari2021}, which require invasive instrumentation and disassembly of the devices, and as such are not feasible during operation. Aiming to bridge this gap and provide a method for non-invasive evaluation of the running-in phenomenon, this work proposes an ensemble of transition detection methods that employs unsupervised learning techniques as tools for recognizing single-occurrence patterns such as the one presented during running-in.
+
+
+Some of the ensemble units consider a novel version of the Mahalanobis distance kernel integrated into the kernel $k$-means clustering algorithm. Since at first the detection models are not necessarily related to the running-in process, some criteria were devised to prune models whose methods, parameter combinations, and physical quantities were not consistent with the behavior defined in the literature on tribology. The models approved in the pruning process were used to interpret the relation between features and patterns in the clustering results which were consistent with the transition from running-in to tribological steady state. This transition identification and the analysis of the features that led to it can then aid in identifying underlying characteristics of the process and in defining when a newly manufactured compressor reaches its tribological steady state and is ready for performance tests.
+
+The main contributions of this paper are summarized as follows:
+%
+\begin{itemize}
+    \item an unsupervised method for nondestructive running-in to tribological steady state transition detection in hermetic reciprocating compressors, a research problem which has never been addressed in literature, that requires little to no prior knowledge of the phenomenon for implementation;
+    \item a novel Mahalanobis radial basis function (RBF) clustering kernel, which includes information of the dataset distribution in the clustering process while still maintaining the simple structure provided by the kernel $k$-means algorithm;
+    \item a novel clustering-based framework for detecting single-occurrence transitions in time series;
+    \item a noninvasive experimental test procedure for extracting experimental data of the running-in phenomenon in hermetic reciprocating compressors;
+    \item a feature analysis of the running-in process in hermetic compressors based on the parameters of the ensemble of detection models produced, validated with experimental data.
+\end{itemize}
+
+This paper is organized as follows. Section \ref{sec:TheoreticalFramework} describes the theoretical background employed in the development of this work, including literature on the problem of indirect running-in identification in complex machinery, a description of the clustering techniques applied in this work, and a brief overview of the kernelization process for the Mahalanobis distance. Section \ref{sec:Method} presents the proposed method for interpreting and automatically detecting the running-in to tribological steady state transition using a pruned unsupervised ensemble of transition detection methods, also described in the same section. Section \ref{sec:ExperimentalAnalysis} describes the design and implementation of an automated test rig for running-in evaluation and the test procedures devised for this paper. Section \ref{sec:Results} describes the interpretation of the detection results by considering the ensemble pruning process, and the detected transition instants from the remaining members of the ensemble. Section \ref{sec:Conclusion} presents the final remarks and conclusions of this work.
+
+\section{Theoretical Framework}\label{sec:TheoreticalFramework}
+
+% Based on the works described in this subsection, a test rig was designed and implemented for measuring the physical quantities possibly related to the running-in phenomenon in a controlled environment. Section~\ref{sec:ExperimentalAnalysis} describes the test rig and the test procedures.
+
+This section presents the theoretical background employed in the development of this work. Subsection \ref{subsec:RunningIn} describes the problem of running-in identification in hermetic compressors and provides an overview of indirect methods for running-in identification and analysis, with an emphasis on works that suggest physical quantities possibly related to the phenomenon in reciprocating machinery and other general mechanisms. These works were later used as basis for the development of both the ensemble pruning method described in Subsection~\ref{subsec:EnsemblePruning} and the experimental test rig described in Section~\ref{sec:ExperimentalAnalysis}. Subsection \ref{subsec:ClusteringMethods} presents a brief overview of the $k$-means, kernel $k$-means and agglomerative hierarchical clustering (AHC) methods, which were applied in the clustering part of the transition detection algorithm. Finally, Subsection \ref{subsec:MahalanobisDistance} presents the Mahalanobis distance and the Mahalanobis-RBF kernel, which were later applied for the kernel clustering of experimental running-in data.
+
+\subsection{Running-in}\label{subsec:RunningIn}
+
+The usual methods of running-in analysis involve the study of characteristics such as surface topography, rate and type of wear, and COF of the contact \cite{Khonsari2021,Blau1982}. \color{red} Although some of these attributes may be considered as possible indicators of running-in progress in more intricate machinery \cite{Ruggiero2020}, they are generally studied in simpler tribo-pair experiments, with single-point contact, such as ball-on-flat \cite{Blau1981}, ball-on-disk \cite{Grutzmacher2018}, and pin-on-disk reciprocating wear tests \cite{Lin2024,Zambrano2024,Ghatrehsamani2022}. Some of these works also extrapolate the tribo-pair analysis to real machinery contacts, such as the work described in \cite{Jiao2023}, which evaluates the tribological performance of valve plate pairs in axial piston pumps based on a ring-on-block experimental setup. \color{black} These studies provide great insights into the effects of sliding behavior during running-in under certain conditions, but the extension of the results of such tests to the running-in analysis of more complex devices, with multiple moving parts and contact surfaces, is hardly useful for detecting the end of the phenomenon. This occurs primarily because more complex mechanisms have characteristics, such as the suboptimal alignment of parts and the coupling between internal mechanisms, which can significantly modify the running-in behavior when compared with that analyzed based on a single-point contact \cite{Blau1991}.
+
+Aside from direct estimation methods such as the one presented in \cite{Vojtov2019}, which require direct access to the sliding surfaces, the literature lists some methods that aim to indirectly identify the running-in phenomenon in machinery. The remainder of this subsection presents an overview of such methods, which suggest how to analyze the running-in behavior and provide some insights on which physical quantities related to the phenomenon can be measured online in nondestructive compressor tests.
+
+Reference \cite{Blau2009} presents three attributes of friction behavior over time that are indicators of the running-in process: the general curve shape, the duration of certain features of the curve, such as transient states and plateaus, and the magnitude of fluctuations in the friction force. Many factors affect the curve shape, e.g., the composition of the materials, the mechanical load on the sliding contact, and the lubrication between surfaces, but all of them are difficult to measure directly in commercial devices. The same can be said about the COF itself. However, in machinery such as reciprocating compressors, the friction losses are closely related to the power consumption \cite{Lilie1990}, and as such, may be indirectly estimated by the electrical current consumption of the compressor motor over time. The use of such indirect estimation to infer the mechanical load of an electric motor-based system is presented in \cite{eissenberg_ASM_currentAnalysis}, which uses both the mean value and the instantaneous fluctuations of the electrical current. The former is usually the most important parameter, since it is used to represent the average total load on the device, which is closely related to the COF and consequently to the running-in state, if the remaining variables are kept constant. For alternating current motors, the mean value is replaced by the root mean square (RMS) value of the signal; however gradual changes in the current RMS value might also represent changes in the COF. Still, in reciprocating compressors, this behavior might be either too subtle to detect or masked by the effect of other variables, such as the inlet pressure and the temperature of the internal components of the device, which heavily affect the power consumption of the compressor \cite{Hanlon2001}.
+
+The work presented in \cite{martin_ASM_vibrationAnalysis} suggests the kurtosis of vibration in a mechanical system as an alternative for friction analysis. For the running-in of bearings, the author demonstrates that as the system approaches tribological steady state, the kurtosis approaches three, thus indicating that the distribution of the vibration signal approaches a normal distribution as the running-in period tends to its end. In compressors, variations in the COF and mechanical load, which are knowingly related to the running-in phenomenon of tribopairs \cite{Blau2009}, can lead to changes in the vibration modes of its shell casing \cite{Dreiman1998, Soedel2007}. The RMS value of the vibration is also commonly associated with fault and anomalous behavior detection methods \cite{Lv2022, Ahmed2012, Hou2023}, and as such might be an indicator of the running-in process. On the other hand, since both the kurtosis and the RMS value of the vibration are also commonly related to faults and other anomalous behavior in reciprocating compressors, there are currently no vibration-based methods in the literature that suggest that the running-in can be distinguished from other anomalous behavior in complex machinery.
+
+Most of the main performance parameters for compressors are related to the mass flow rate generated by the compressor and to its power consumption, which is proportional to the electric current required for operation. Consequently, the mass flow rate and current are usually evaluated in performance tests \cite{Pacheco2022}. Even though the literature presents no running-in identification method based on such performance parameters, they are linked to physical quantities related to the running-in process, such as temperature and COF, and as such might be indicators of the phenomenon.
+
+\subsection{Clustering Methods for Ensembles}\label{subsec:ClusteringMethods}
+
+Clustering is one of the main topics in the field of unsupervised machine learning, which deals with grouping unlabeled data according to some similarity measure. Contrary to supervised machine learning methods, which employ previously labeled data for learning patterns in a dataset, unsupervised clustering methods take as input a dataset with little to no output information. Although this factor makes it inadequate for most classification problems, it allows for the extraction of patterns that are outside of expert knowledge or that would require a large effort for labeling, as long as the result interpretation is adequately done \cite{Duda2012}.
+
+\color{red}Clustering ensembles can be used when the actual clusters of the data are not compact and well separated enough to be discerned by a single model, and have been shown in recent studies to outperform even state-of-the-art models for some dataset shapes \cite{Xie2024}. \color{black} In this framework, a large number of different clustering models is trained, and the clustering results the models are combined using some predefined function. The models used in the ensemble might be composed of different clustering algorithms or use different hyperparameters and initialization conditions. The processing of the data may also be different for each element of the ensemble, allowing for the clustering of various feature spaces derived from the same initial dataset. \color{red} Aside from the clustering itself, clustering ensembles can also improve the classification capabilities of supervised models, since the labels assigned by the ensemble can extract meaningful patterns which could otherwise not be discerned by the classifier itself \cite{Nanfak2024}. \color{black} Since ensemble methods require training of a large number of clustering models, the choice of clustering algorithm is usually restricted to simpler methods with low computational cost, based on the fact that the shortcomings of each model will be filtered out by the combined variety of the ensemble \cite{Jain2010, Zhou2012}.
+
+The ensemble proposed in this work, which is described further in Section 3, is designed for clustering methods which allow for a predefined number of clusters, so kernel density methods such as OPTICS \cite{Ankerst1999}, DENCLUE \cite{Hinneburg2007}, SNN \cite{Ertoz2003}, DBSCAN \cite{Ester1996}, and their derivatives \cite{Schubert2017} were not considered. Furthermore, since the transition detection algorithm of the proposed ensemble is based on hard clustering of the data, fuzzy methods such as fuzzy c-means \cite{Bezdek1984} were not employed.
+
+\color{red} From the available clustering methods, the $k$-means algorithm is considered to be one of the most flexible and popular algorithms in academic research in this area and has been successfully employed in ensemble-based applications\cite{Ahmed2020, Bai2020, Dong2020, Lakshmi2024}. \color{black} Several variants and extensions of the algorithm are presented in the literature, as pointed out by the clustering review in \cite{Jain2010}, but results from the application of the basic $k$-means algorithm suggest that it is sufficient for machinery sensing and maintenance \cite{Uhlmann2018}, which have significant contextual similarities with the running-in period detection.
+
+Starting from the initial centroids, the algorithm performs the following steps iteratively until convergence:
+%
+\begin{enumerate}
+    \item each element of the vectors is assigned to the nearest centroid, clustering the data;
+    \item each centroid is relocated to the mean (or another measure of center, such as weighted mean, depending on the variant of the algorithm) of all points assigned to it.
+\end{enumerate}
+
+The number of centroids $\bm{k}$ is a user-specified parameter and is the most critical choice for the application of the algorithm \cite{Jain2010}. There is no perfect mathematical criterion for such a choice, but several heuristic approaches have been described in the literature \cite{Steinley2006,Steinley2011,Hancer2017}. Among these approaches, the one chosen for this study is the so-called elbow or knee-point method, which is based on the shape of the sum of squared error curve as a function of the number of clusters and has already been used in similar applications \cite{Uhlmann2018}.
+
+In high-dimensional and complex data, the original $k$-means algorithm might not yield consistent results because the inertia in the sample space, which is minimized by the algorithm, is possibly not a good indicator of model quality \cite{Li2023}. A cost-efficient alternative is the kernel $k$-means, which also minimizes inertia, but in a higher-dimensional kernel space, thus allowing for adequate clustering even when the dataset is not linearly separable, as long as the chosen kernel is suitable for the problem \cite{Yao2021}.
+
+Owing to the general properties of the processed running-in dataset, one of the chosen kernels was the widely applied RBF kernel, defined as
+%
+\begin{equation}\label{rbfkernel}
+    K^\textsuperscript{RBF}(\bar{X}_i,\bar{X}_j)=\text{exp}\left(-\frac{d\textsubscript{E}^2(\bar{X}_i,\bar{X}_j)}{2\sigma^2}\right),
+\end{equation}
+%
+where $d\textsubscript{E}^2(\bar{X}_i,\bar{X}_j)$ is the squared Euclidean distance between the two sample vectors $\bar{X}_i$ and $\bar{X}_j$, and $\sigma$ is the kernel width parameter, which controls the scaling of the mapping \cite{Wang2007}. An example of RBF kernel $k$-means application for fault detection is presented in \cite{Khediri2012}, which employs the technique in order to develop a high-sensitivity method for detecting faults in semiconductor etching. 
+
+Aside from the aforementioned partition methods for clustering, hierarchical methods have also been successfully applied in state-of-the-art fault detection algorithms. AHC is one such algorithms, which first divides all the elements of the dataset, and then aggregate them in clusters according to a similarity measure \cite{Murtagh2012}. In recent applications, the method has been combined with dynamic time warping (DTW) for clustering time series in order to extract patterns and predict health status of machinery \cite{Hennig2021,SepulvedaOviedo2022}. While AHC can be applied using euclidean distance, DTW provides a metric which rearranges time series, accounting for possible misalignements and allowing the identification of patterns common to the sequences \cite{Berndt1994}.
+
+\subsection{Mahalanobis Distance}\label{subsec:MahalanobisDistance}
+
+The Mahalanobis distance is a statistic that considers the covariance of the whole dataset when evaluating the distance between samples \cite{Jian2022}. It is defined as
+\begin{equation}
+    d\textsubscript{M}^2(\bar{X}_i,\bar{X}_j,\Sigma) = (\bar{X}_i-\bar{X}_j)\textsuperscript{T}\Sigma^\dagger(\bar{X}_i-\bar{X}_j),
+\end{equation}
+%
+where $\Sigma$ is the covariance matrix of the dataset and $\Sigma^\dagger$ is its pseudoinverse.
+
+The Mahalanobis distance has been recently employed in the health management of rotating machinery \cite{Chen2024, Zhang2024} and of centrifugal compressors \cite{Hou2023}, and has shown good performance as a kernel in the classification of datasets with uneven distribution along their axes \cite{Ruiz2001,Wang2007,Zeng2021}. Given these characteristics, this metric might provide good representations for distinguishing the steady state and running-in phases.
+
+\section{Method}\label{sec:Method}
+
+In order to evaluate features related to the running-in process and automatically detect a transition to the tribological steady state in data from real compressor operation, an unsupervised-ensemble-based method was developed. An overview of this method is presented in Figure~\ref{fig:diagramaMethod} and all of its steps are described in this section.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=1\textwidth]{fig3.pdf}    % The printed column width is 8.4 cm.
+\caption{ Schematic representation of the proposed framework.} 
+\label{fig:diagramaMethod}
+\end{center}
+\end{figure}
+
+The main input to the method is the set of time series data from compressor operation during running-in and during steady-state operation, represented in Figure\ref{fig:diagramaMethod} as the ``Experimental tests'' step. These data are ideally composed of measurements from different quantities indicated in the running-in literature described in Subsection \ref{subsec:RunningIn}, such as electric current, vibration, and mass flow. In Section \ref{sec:ExperimentalAnalysis} we present an example of a nondestructive test rig for extracting experimental data, which was used as a case study for this work.
+
+For each time series of measured physical quantity, the experimental data are processed, clustered, and analyzed to search for patterns that might indicate a transition from running-in to steady state, as represented in the step named ``Data processing'' in Figure \ref{fig:diagramaMethod}. The processing of the time series (Section \ref{subsubsec:DelayedSpaceSlidingWindowProcessing}) of a single quantity is performed using a moving average filter and delayed space sliding window subsequencing using a single combination of processing parameters, generating the sample vectors of the feature space for a clustering algorithm (Section \ref{subsubsec:Clustering}). Based on the proportion of the clustered data over time, three transition detection methods (Section \ref{subsubsec:DelayedSpaceSlidingWindowProcessing}) were developed that indicate permanent changes in compressor behavior and estimate the moment at which this change occurred. Together, all these processes define the transition detection algorithm which is further described in Subsection \ref{subsec:TransitionDetectionAlgorithm}.
+
+All processes that make up the transition detection algorithm require some previously defined parameters. These parameters are divided into three groups: the processing parameters, related to the delayed space sliding window processing; the clustering parameters, related to the clustering algorithm; and the detection parameters, related to the transition detection itself. After being employed, this algorithm will either return the instant at which the transition occurred or return no instant at all, indicating that either there was no transition or that the choice of parameters was inadequate for the task. In its current design, this method is only able to detect single occurring transitions, which does not affect the running-in to steady state detection, but should be considered when applying the method in other contexts.
+
+Choosing a single combination of processing parameters is a complex task, as each parameter individually has no necessarily clear relation with the clustering results. Instead of heuristically choosing a combination of processing parameters that could possibly detect patterns specifically related to the transition from running-in to steady state, a larger parameter space is defined based on preliminary tests with experimental data and on the natural transient period of a given compressor model. A detection model is then set up for each combination of physical quantity and processing parameters, forming an ensemble of clustering-based transition detectors. The ensemble setup is represented by the dashed rectangular named ``Ensemble Setup'' in Figure \ref{fig:diagramaMethod}, and is described along with the parameter space in detail in Subsection~\ref{subsec:EnsembleSetup}.
+
+Up until this point, there has been no assumption about the pattern the models of the ensemble would detect. While it is possible that certain parameter combinations will detect a running-in to steady state transition, others can detect different anomalies in the data, or even no transition at all. To direct the ensemble toward detecting the desired transition while still not cherry picking results, all generated transition instants are employed in an automated pruning step, which was developed to prune from the ensemble models that do not meet some simple general criteria, such as not detecting transitions in running-in tests and detecting transitions in steady-state data. All the reasoning and devised criteria behind this pruning method are encompassed in Figure \ref{fig:diagramaMethod} by the ``Ensemble pruning'' step and are described in Subsection~\ref{subsec:EnsemblePruning}.
+
+After pruning, both the parameter combinations of the remaining ensemble methods and the transition detected by each ensemble member are analyzed. The parameter combinations of meaningful transitions models are employed for feature interpretation, looking for information such as which physical quantity resulted in the most valid detection models and how much filtering and delay parameters affected the detection of transitions. With regard to the meaningful transition instants, the pool of detection results from the ensemble is analyzed taking into account the conclusions taken from the feature interpretation process, providing the probability of steady state for each instant in a given test. These results are discussed separately in Section~\ref{sec:Results}.
+
+\subsection{Transition Detection Algorithm}\label{subsec:TransitionDetectionAlgorithm}
+
+The transition detection algorithm was designed to detect single occurrence transitions in time series data. It takes as input a set of time series, which are measurements from a single physical quantity at multiple long duration tests, with the first test long enough to contain the entire running-in period. Since the exact duration of the running-in phenomenon is not previously known, the length of the tests can be experimentally defined based on results of compressor performance tests, such as those presented in Section~\ref{sec:Introduction}. As outputs, the algorithm estimates a transition instant for each input time series. If it is not able to estimate one, it outputs a flag indicating that the test did not contain a transition.
+
+The transition detection algorithm is comprised of three parts: the processing from time series to sample vectors, performed using a delayed space sliding window algorithm; the clustering algorithm, which divides the subsequenced sample vectors into a predefined number of clusters; and the transition detection itself, which searches the clustered data for patterns based on rules fitting for single occurrence transitions. These processes are described in Subsections \ref{subsubsec:DelayedSpaceSlidingWindowProcessing}, \ref{subsubsec:Clustering}, and \ref{subsubsec:DetectionMethods}, respectively.
+
+
+\subsubsection{Data processing}\label{subsubsec:DelayedSpaceSlidingWindowProcessing}
+
+Since the patterns related to the running-in are supposed to be contained within the time series data, but to last only for a finite unknown period, the clustering cannot be performed considering the entire time series of a test. Therefore, to split the data into subsequences, the sliding window method was employed. To also incorporate slower dynamics into the sample vectors, the sliding window is performed in a delayed space, with multiple combinations of window length, $N$, and delay, $D$. Since experimental data usually contain noise, which might affect the clustering algorithm, the original time series data are also filtered with a moving average filter before subsequencing, with multiple filtering windows, $M$, being evaluated along with the other parameters.
+
+The processed sample vectors, $\hat{X}$, can then be defined as:
+\begin{equation} \label{eq:vectorSliding}
+    \begin{gathered}
+    \hat{X}(k) = \left[\begin{matrix} 
+    \hat{x}(k), & \hat{x}(k-D), \hat{x}(k-2D), & \cdots,\hat{x}(k-(N-1)D)
+    \end{matrix}\right], \\
+    \hat{x}(k) = \frac{1}{M}\sum\limits_{j=0}^{M-1} x(k-j),
+\end{gathered}
+\end{equation}
+%
+\noindent where $\hat{x}(k)$ is the moving average filtered value and $x(k)$ is the measurement of a physical quantity at the instant $k$. \color{red} Figure \ref{fig:dataProcess} presents a representation of the data processing. \color{black} Because of the inrush current spike and of the natural transient period in compressor tests \cite{Coral2019}, only data acquired after the first hour of operation are considered for analysis, and $k = 1$ is defined as the \SI{1}{\hour} threshold. For values associated with time instants at which $k<M$, the length of the moving average window is reduced to $k$. In addition, the sample vector $\hat{X}(k)$ is only defined for $k>(N-1)D$.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{fig4.pdf}    % The printed column width is 8.4 cm.
+\color{red}
+\caption{Representation of the filtering and delayed space sliding window processing.}
+\label{fig:dataProcess}
+\end{center}
+\end{figure}
+
+After subsequencing, some specific properties increase in the dataset due to the original signal reaching steady state. One such property is that, as the signal approaches steady state in a given instant $k$, the resulting sample vector $\hat{X}(k)$ approaches the line of equality of the $N$-dimensional space because in steady state $\hat{x}(k) \approx \hat{x}(k-1) \approx ... \approx \hat{x}(k-(N-1)D)$. This property ensures so that a large number of data points are located near the line of equality, while the points relative to the first few hours of compressor operation are scattered further in the space. Both the natural transient period of compressor tests and the running-in phenomenon occur in these first few hours, with the latter lasting for a longer period than the former and occurring only in the first test of each unit. An example of this aspect is presented in Figure~\ref{fig:visualizeData3D}, which shows the dataset generated after processing time series data from one running-in and two steady-state tests of a given compressor, when processed with parameters $N=2$ and $D=10$. The data presented in the figure show that, after approximately \SI{5}{\hour}, the data points reach the line of equality (dashed line on Figure~\ref{fig:visualizeData3D}), only moving relatively close around the steady-state value after that.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{fig5.pdf}    % The printed column width is 8.4 cm.
+\caption{Example of RMS current dataset generated by delayed space subsequencing time series from 3 tests of the same compressor ($N=2$, $D=10$).}
+\label{fig:visualizeData3D}
+\end{center}
+\end{figure}
+
+\subsubsection{Clustering}\label{subsubsec:Clustering}
+
+In the clustering step of the transition detection algorithm, the centroids for the $k$-means are initialized using the $k$-means\texttt{++} method \cite{Arthur2007}, and the number of clustering groups, $\bm{k}$, which in the $k$-means, kernel $k$-means and AHC algorithms must be provided beforehand. In this work, the clusters are named Cluster 1 to Cluster $\bm{k}$, in chronological order of appearance in the running-in tests.
+
+The resulting clusters are then analyzed, evaluating the capability of clustering to provide indicators of the running-in process. To do so, the proportion of clusters in a given time window is taken as a measure of the distribution of clusters along each test instant. This proportion $p_c$ of a cluster $c$ at a given instant $k$ is defined as:
+\begin{equation} \label{eq:proportion}
+p_c(k) = \frac{\text{count}(c,C_e(k-W/T_s))}{W/T_s},
+\end{equation}
+
+\noindent where $C_e$ is a vector containing the clusters assigned to each sample vector of the test $e$, $W$ is the proportion window in minutes, and count$(c,C_e(k-W/T_s)$ is the number of instances of $c$ in the last $W$ minutes. It should be noted that $p_c(k)$ is only defined for $k>W/T_s$.
+
+Figure~\ref{fig:amaciamentoClustersBom} shows an example of $k$-means clustering and cluster proportion analysis for the current kurtosis of a compressor unit, as well as the cluster proportion for each hour of test. In this clustering, processed with $\bm{k} = 3$, $M = 1$, $N = 5$, and $D = 10$, it is visually distinguishable that Cluster~3 occurs since the beginning of the tests in which the compressor is known to be in tribological steady state, presented in the figure as Reference 1 and Reference 2 tests. However, in the running-in tests, the same cluster is identified only after \SI{12}{\hour} of test, supporting the preliminary observations described at the beginning of this section.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{fig6.pdf}    % The printed column width is 8.4 cm.
+\caption{$k$-means clustering and cluster proportion: current kurtosis of a compressor unit, processed  with $M = 1$, $N = 5$, and $D = 10$.}
+\label{fig:amaciamentoClustersBom}
+\end{center}
+\end{figure}
+
+Despite some easily interpretable results, most of the parameter combinations do not generate separable clusters, or the patterns resulting from the clustering process cannot be assigned to the running-in phenomenon. An example of inadequate clustering result is presented in Figure~\ref{fig:amaciamentoClustersRuim}, which shows the clustering of data from the same compressor unit as in Figure~\ref{fig:amaciamentoClustersBom}, still with $\bm{k} = 3$, but with mass flow rate data processed with $M = 1$, $N = 5$, and $D = 1$. In this case, none of the clusters present a pattern that fits the expected running-in behavior, with little or no similarities between reference tests and no clear difference between the reference tests and the running-in clustering.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{fig7.pdf}    % The printed column width is 8.4 cm.
+\caption{$k$-means clustering and cluster proportion: mass flow rate of a compressor unit, processed  with $M = 1$, $N = 5$, and $D = 1$.}
+\label{fig:amaciamentoClustersRuim}
+\end{center}
+\end{figure}
+
+Since the complete analysis of such a large search space would require great effort to be performed manually, some automatic methods were developed to determine an instant in which a single occurring transition could have taken place. These transition detection methods are described in the next subsection.
+
+\subsubsection{Transition Detection}\label{subsubsec:DetectionMethods}
+
+Based on the proportion of clusters at a given test instant, three automated methods were designed, considering simple patterns drawn out by the clustering algorithm that could be related to the end of the running-in process. These methods are described below.
+
+Method \labeltext[\textbf{I}]{\textbf{I}}{met:dom}, named as the Dominant cluster method, defines that the transition instant $T$ is such that:
+\begin{equation}
+\begin{gathered}
+    \textbf{I: } \forall\, j \in \{0, 1, ..., k_f-k\} \,\forall\, i \in C-\{c\},\\ T = (\text{min}(t(k)))\,\|\,p_c(k+j)>p_i(k+j),
+\end{gathered}
+\end{equation}
+\noindent where $k_f$ is the last test instant, $p_c$ and $t$ are the cluster proportions and their associated timestamps, respectively, and $C$ is the set of all clusters in the test. In other words, this method considers that the compressor reaches tribological steady state when the proportion of a given cluster $c$ in the last $W$ minutes is greater than that of all other clusters. Conceptually, this method considers that the steady-state transition is indicated by the prevalence of a single cluster $c$.
+
+Method \labeltext[II]{\textbf{II}}{met:supThr}, named as the Upper threshold method, considers that the compressor is in tribological steady state after the proportion of a given cluster $c$ in the last $W$ minutes is greater than an upper threshold $l\textsubscript{U}$. This method is based on the hypothesis that the frequent occurrence of the cluster $c$ might indicate the end of the running-in period, even if it is not the predominant cluster. Two submethods are derived from this concept: Method \ref{met:supThr}.a, defined in \eqref{eq:supThrFir}, which assumes that the detected transition instant is the first one in which the cluster proportion exceeds the threshold; and Method \ref{met:supThr}.b, defined in \eqref{eq:supThrAll}, which assumes that the transition instant is that in which the cluster proportion exceeds the threshold, as long as it stays over it until the end of the test.
+% \begin{equation}\label{eq:supThrFir}
+% \begin{gathered}
+%     \textbf{II.a: } l \in [0,1), \, T = \text{min}(t(k))\,|\,p_c(k)>l
+% \end{gathered}
+% \end{equation}
+%
+\begin{equation}\label{eq:supThrFir}
+    \textbf{II.a: } l\textsubscript{U} \in [0,1), \, T = \text{min}(t(k))\, \| \, p_c(k)>l\textsubscript{U},
+\end{equation}
+%
+\begin{equation}\label{eq:supThrAll}
+\begin{gathered}
+    \textbf{II.b: } l\textsubscript{U} \in [0,1) \,\forall\, j\, \in \{0, 1, ..., k_f-k\}, T = \text{min}(t(k))\,\|\,p_c(k+j)>l\textsubscript{U}.
+\end{gathered}
+\end{equation}
+
+Lastly, Method \labeltext[III]{\textbf{III}}{met:lowThr}, named as the Lower threshold method, assumes that the transition occurs when the proportion of a given cluster $c$ in the last $W$ minutes becomes lower than a threshold $l\textsubscript{L}$. This assumption is based on the hypothesis that the final phase of the running-in process is represented by a single cluster, and as this cluster becomes less frequent, the device enters the tribological steady state. As with Method \ref{met:supThr}, two submethods derive from this concept: Method \ref{met:lowThr}.a, presented in \eqref{eq:lowThrFir}, which assumes that the detected transition instant is the first one at which the cluster proportion is lower than the threshold; and Method \ref{met:lowThr}.b, presented in \eqref{eq:lowThrAll}, which assumes that the transition instant is that at which the cluster proportion is lower than the threshold, as long as it stays under it until the end of the test.
+\begin{equation}\label{eq:lowThrFir}
+\begin{gathered}
+    \textbf{III.a: } l\textsubscript{L} \in (0,1], \,T = \text{min}(t(k)) \,\|\,p_c(k)<l\textsubscript{L},
+\end{gathered}
+\end{equation}
+\begin{equation}\label{eq:lowThrAll}
+\begin{gathered}
+    \textbf{III.b: } l\textsubscript{L} \in (0,1] \,\forall\, j \in \{0, 1, ..., k_f-k\}, \\ T = \text{min}(t(k))\,\|\,p_c(k+j)<l\textsubscript{L}.
+\end{gathered}
+\end{equation}
+
+All the proposed methods require the time window $W$ and the cluster $c$ to be defined prior to their application. In addition, Methods \ref{met:supThr} and \ref{met:lowThr} require the thresholds $l\textsubscript{U}$ and $l\textsubscript{L}$, respectively, beforehand. The complete transition detection algorithm, from the data processing to the detection itself, is described in Algorithm~\ref{alg:pseudoCode}, with parameters $M$, $D$, $N$, and $W$ defined beforehand, \color{red} and represented in the schematic in Figure \ref{fig:algorithm}. \color{black}
+
+\begin{algorithm}[htb]
+\caption{\small{Algorithm for detecting transitions in compressor data by means of data clustering}} \label{alg:pseudoCode}
+\begin{algorithmic}[1]
+\Require{test data $x_i$ of one physical quantity and timestamps of test data $t_i$, with $i$ from 1 to the $n$ tests of a single compressor unit, test data sampling time $T_s$, filtering window $M$, vector length $N$, delay $D$, clustering algorithm, number of clusters $\bm{k}$, transition detection method, proportion window $W$, cluster of interest $c$ and thresholds $l\textsubscript{U}$ or $l\textsubscript{L}$, depending on the transition detection method}
+\Ensure{detected transition instant $T_i$ for each test $i$ from 1 to $n$}
+ \vspace{5pt}
+ \Statex \textit{Processing of test data:}
+ \For{$i\leftarrow 1$ \textbf{to} $n$}
+     \State Filter data of test $i$ using moving average filter;
+     \State Apply sliding window sequencing in delayed space to form $\hat{X}_i$, as proposed in \eqref{eq:vectorSliding};
+     \State Discard elements of $t_i$ smaller than $(N-1)DT_s$;
+\EndFor
+\State Concatenate all $\hat{X}_i$ into a single $\hat{X}_{L\times N}$ matrix, where: 
+
+$L = \sum_{e=1}^{n} t_e D(N-1)/T_s$, with $t_e$ being the duration of the $e\textsuperscript{th}$ test;
+ \vspace{5pt} 
+  \Statex \textit{Clustering and cluster proportions:}
+ \State Cluster the sample vectors in $\hat{X}$ using the $k$-means, the kernel $k$-means or the AHC algorithms, for $\bm{k}$ clusters;
+ \State Split the clustering result into $c_i$ for each test $i$, according to its corresponding $\hat{X}_i$ row;
+ \For{$i\leftarrow 1$ \textbf{to} $n$}
+    \State Evaluate the proportion of cluster $c$ individually for each test $i$ as in \eqref{eq:proportion};
+    \State Update $t_i$ to the defined instants of $p_{c,i}$;
+ \vspace{5pt} 
+ \Statex \textit{Transition detection:}
+     \State Detect transition $T_i$ using one of the detection methods proposed in Subsubsection \ref{subsubsec:DetectionMethods}, with parameters $W$ and $c$, and $l\textsubscript{L}$ or $l\textsubscript{U}$, when applied;
+    \State Return result $T_i$;
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=\textwidth]{fig8.pdf}    % The printed column width is 8.4 cm.
+\color{red}
+\caption{Schematic of the processing and transition detection algorithm.}
+\label{fig:algorithm}
+\end{center}
+\end{figure}
+
+\subsection{Ensemble Setup}\label{subsec:EnsembleSetup}
+
+In order to form an ensemble of detection models consistent with the theoretical behavior of the running-in process, a parameter space is proposed, and each combination of parameters in this space would result in a different transition detection model. This parameter space can be subdivided into three spaces: the processing parameters, which are related to the delayed space sliding window processing of time series; the clustering parameters, related to the unsupervised algorithms used to cluster the subsequenced time series; and the transition detection parameters, related to the method used for detecting transitions in the clustered data.
+
+A range for the processing parameters $M$, $N$, and $D$ should be previously defined, where every combination of parameters inside the parameter space is applied once for every physical quantity possibly related to the running-in phenomenon. As can be inferred from \eqref{eq:vectorSliding}, the time length of a given sample vector is defined as $(N-1)DT_s$, where $T_s$ is the sampling period of the data. The chosen range of processing parameters should be capable of extracting information from both short-term (small $N$ and $D$ values) and long-term (large $N$ and $D$ values) dynamics. However, since larger time windows also increase the starting time before the first sample vector $\hat{X}(1)$ is defined, some parameter combinations might surpass the transient period of the tests, or even the running-in period. To avoid this, the maximal time length of the sample vector should be set based on the natural transient period of the subject, which is usually known based on the compressor model.
+
+For the clustering parameters, the variable parameters for the ensemble setup are the clustering algorithm to be employed and the number of clusters $\bm{k}$. For this work, the algorithms employed were $k$-means, kernel $k$-means and AHC, but other clustering methods may also be employed when implementing this framework.
+
+As presented in Subsection~\ref{subsubsec:DelayedSpaceSlidingWindowProcessing} the dataset generated by subsequencing time series from some compressor features is not evenly distributed in the sample space, and changes in value along different axis might not have the same relevance in determining anomalous states. While Euclidean metrics do not consider the shape of the dataset, this might be achieved by employing the Mahalanobis distance, described in Subsection~\ref{subsec:MahalanobisDistance}, in the clustering process as a kernel. By itself, this distance does not produce a positive semi-definite function; therefore, it is not a valid kernel. However, it is possible to modify the formulation of the RBF kernel presented in \eqref{rbfkernel}, substituting the Euclidean distance for the Mahalanobis distance. The resulting mapping meets the requirements for a valid kernel function \cite{Wang2007}. This Mahalanobis-oriented kernel, henceforth labeled as MRBF, stretches the radial basis along the dataset distribution, so it contains more information on the dataset structure than its Euclidean counterpart \cite{Wang2007}. In order to evaluate the impact of the Mahalanobis distance in the clustering process, both the original RBF kernel and the MRBF kernel were employed in the ensemble setup for this work. The AHC algorithm was employed in this paper as comparison, both with and without DTW processing.
+
+As for the transition detection algorithm itself, the parameter space contains the transition detection methods, values for the proportion window $W$, and when required, a set of thresholds $l\textsubscript{U}$ and/or $l\textsubscript{L}$. Since the ensemble is setup on a combination of all combinations in the parameter space, it might contain several models. This, however, should not impact computational feasibility, since the models themselves are not computationally expensive, and most of them are not expected to produce meaningful results. Therefore, to input as little manual bias as possible, all models are taken into account and pruned based on the general concepts described in Subsection~\ref{subsec:EnsemblePruning}.
+
+\subsection{Ensemble Pruning}\label{subsec:EnsemblePruning}
+
+In order to distinguish models that result in meaningful state transitions in an unbiased and automated fashion, some objective guidelines were defined based on the concepts of the running-in phenomenon and on the preliminary analysis of test data. These criteria are defined as follows.
+
+Criterion \labeltext[\textbf{C1}]{\textbf{C1}}{crit:todosAmac} establishes that the condition ``steady state'' must be detected in all tests. This criterion was established on the proposition that all tests performed are long enough for the compressor to reach tribological steady state.
+
+Criterion \labeltext[\textbf{C2}]{\textbf{C2}}{crit:NAmacMaior} determines that the transition instant from ``running-in'' to ``steady state'' in the running-in tests must always occur later than in the reference tests. This proposition should always be true for effective detection methods, since the running-in process occurs only once in the device's lifetime. Even though the detection algorithm might associate the transient state at the beginning of a test with the running-in period, such an association should not interfere with the correct detection in running-in tests.
+
+Criterion \labeltext[\textbf{C3}]{\textbf{C3}}{crit:menor5} establishes that, in reference tests, the detected state transition should not exceed the duration of the natural transient associated with the settling of the compressor tests. Since this transition might take up to \SI{90}{\minute} in compressor test rigs \cite{Penz2012}, and since some processing parameter combinations might take up to \SI{4}{\hour} from the beginning of the test in order to generate valid sample vectors for clustering, an upper limit of \SI{5}{\hour} was defined for detecting the transition instant in reference tests.
+
+Lastly, criterion \labeltext[\textbf{C4}]{\textbf{C4}}{crit:maior10} is  defined based on preliminary observations on the settling time of physical quantities. This criterion is not required, but allows for the inclusion of previously known limits for transition detection. It should be noted that this criterion takes into account only the lower bound input for the transition, since the purpose of this work is to detect changes in behavior that, if detectable, should occur either in similar or later instants than those detected by expert analysis. An example of this input is presented in Subsection~\ref{subsec:PreliminaryRunningInAnalysis}, which shows a case in which the settling time of quantities related to the electric current during running-in is distinguishable from the settling time after the phenomenon. As such, the settling time of the running-in test sets the earliest instant at which the compressor could be in tribological steady state.
+
+The proposed criteria can also be written in compact form as:
+\begin{equation}
+    \begin{gathered}
+        \hfilneg \text{C1: } \forall\, u \in U\, \forall\, t_e \in T_e \exists \, x \in \mathbb{R}_+^*, T_{u,t_e} = x;\\
+        \hfilneg \text{C2: } \forall\, u \in U \,\forall\, t_e \in T_e: t_e \geq 2, T_{u,1}>T_{u,t_e}; \
+        \\\hfilneg \text{C3: } \forall\, u \in U \,\forall\, t_e \in T_e: t_e \geq 2, T_{u,t_e}\leq t_{\rm set}; 
+        \\\hfilneg \text{C4: } \forall\, u \in U, T_{\text{u},1}\geq \bar{T}_{\text{u},1};
+    \end{gathered}
+\end{equation}
+%
+\noindent where $T_{u,t_e}$ is the detected transition instant of the $t_e$-th test of unit $u$, $t_{\rm set}$ is the length of the natural transition state of compressor tests, and $\bar{T}_{\text{u},1}$ is the earliest possible steady state transition instant of unit $u$. If no $\bar{T}_{\text{u},1}$ can be estimated on preliminary analysis, this criterion does not apply.
+
+\color{red} Figure \ref{fig:pruningCriteria} illustrates the application of the pruning criteria for selecting models with meaningful transitions for a unit tested three times. For the running-in test, which begins at the first start of a unit, the transition must be detected after those of the reference tests $T_{u,2}$ and $T_{u,3}$, when those are detected (Criterion \ref{crit:NAmacMaior}), and after the settling time of the physical quantity $\bar{T}_{\text{u},1}$ when that is determinable (Criterion \ref{crit:maior10}). For the reference tests, the transition should be either detected before that from the running-in test $T_{u,1}$ and the end of the natural transient of the test $t_{\text{set}}$, or not detected at all, meaning that the transient period did not interfere with the steady state detection process. \color{black}
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=\textwidth]{fig9.pdf}    % The printed column width is 8.4 cm.
+\color{red}
+\caption{Representation of transitions considered meaningful and erratic based on the proposed pruning criteria for a given device.}
+\label{fig:pruningCriteria}
+\end{center}
+\end{figure}
+
+Even though the pruning process is designed to handle tests with no transition, there should be at least one test in the dataset that contains a transition. Furthermore, due to the unsupervised nature of the method and the large number of parameter combinations used, other anomalies in the experimental tests might also affect some of the detection results. As such, even though the transition detection algorithm itself does not require multiple tests to yield results, it is highly advised to input tests from multiple units, so that the individual anomalous behavior of a given unit does not bias the pruning process and, consequently, the final results and interpretation.
+
+Taking into account a large parameter space for the ensemble setup described in Subsection~\ref{subsec:EnsembleSetup}, the pruning method can also be used to interpret quantities and parameters possibly related to the running-in process by analyzing the parameter space of models remaining in the ensemble after pruning. A case study for this analysis is presented in the following section, and the results obtained are presented in Section~\ref{sec:Results}.
+
+\section{Experimental Analysis}\label{sec:ExperimentalAnalysis}
+
+This section describes the experimental procedure employed to obtain data meaningful to the running-in period in hermetic reciprocating compressors and the dataset obtained using this procedure. Subsection~\ref{subsec:ExperimentalSetup} describes the physical structure, instrumentation, and control system of the implemented test rig. Subsection~\ref{subsec:TestData} describes the test procedure considered in this work.
+
+\subsection{Experimental Setup}\label{subsec:ExperimentalSetup}
+
+For this work, an automated test rig was designed and implemented. The piping and instrumentation diagram of this rig is presented in Figure~\ref{fig:diagramaBancada}. The rig was designed based on the concept of a fully gas cycle, with no phase change of the refrigerant. Aside from the compressor (\circled{1}) and the valves for suction (\circled{2}) and discharge (\circled{3}) pressure control, the test rig includes an intermediate stage, which contains a buffer (\circled{4}) for storing excess fluid, and a parallel sight glass (\circled{5}) for fluid phase monitoring. The heat exchanger (\circled{6}) with a coupled fan (\circled{7}) in the intermediate stage avoids overheating in the test rig and forces the excess fluid into the buffer. The manual valves (\circled{8}) are used for fluid charging and for maintenance.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=\textwidth]{fig10.pdf}    % The printed column width is 8.4 cm.
+\caption{Piping and instrumentation diagram of the automated test rig for running-in testing.} 
+\label{fig:diagramaBancada}
+\end{center}
+\end{figure}
+
+
+The suction, discharge, and intermediate pressures were measured using piezoresistive transducers, and the temperatures were measured using Pt100 sensors. The discharge pressure was controlled using a cascade control structure, with a proportional controller in the inner feedback loop for controlling the position of the motorized needle valve (\circled{3}) and a proportional-integral controller in the outer loop for controlling the discharge pressure as a function of the valve position, maintaining the pressure condition within $\pm 0.5\%$ of the reference in steady state. Furthermore, the suction pressure was controlled with a proportional-integral controller in a single feedback loop, with the diaphragm valve (\circled{2}) opening regulated by a voltage signal, achieving reference tracking with a maximum error of $\pm 1\%$ in steady state. The suction and discharge temperatures are controlled in open loop, employing resistors as actuators.
+
+In order to measure the physical quantities possibly related to the running-in process, two accelerometers were placed on the compressor shell in perpendicular axes, with the lateral and longitudinal axes being measured on the upper and lower halves, respectively. A dummy accelerometer was also coupled to the test rig structure in order to identify external disturbances from the vibration produced by the compressor operation. The mass flow measurements were taken using a Coriolis transducer, and a Hall transducer was used for electric current monitoring. To monitor the test rig operating conditions, two additional pressure transducers were installed in the intermediate stage, as well as additional temperature monitoring points on the lower half of the compressor shell and in the intermediate buffer.
+
+Figures~\ref{fig:fotosBancada}(a) and \ref{fig:fotosBancada}(b) present, respectively, a perspective view of the test rig and a side view of its intermediate stage. Furthermore, Figure~\ref{fig:fotosBancada}(c) presents the instrumented compressor, with an emphasis on the piping connections and on the transducers. The service connector is directly connected to the suction inside of the compressor shell, and is used for manual lubricant oil return.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=11cm]{fig11.pdf}    % The printed column width is 8.4 cm.
+\caption{Pictures of the running-in test rig: (a) perspective view; (b) side view of the intermediary stage; (c) instrumented compressor.} 
+\label{fig:fotosBancada}
+\end{center}
+\end{figure}
+
+\subsection{Test Data}\label{subsec:TestData}
+
+The running-in tests were designed with the goal of evaluating the continuous operation of a given compressor during the entire running-in process under steady pressure and room temperature conditions. The test time was defined according to estimates provided by the manufacturer based on the settling of the deviation in consecutive performance tests, with a sufficient time margin in order to guarantee the completion of the process.
+
+For this work, four compressor units of a fixed cooling capacity compressor model were evaluated and are chronologically nominated from Unit~A1 to Unit~A4. These units are designed to operate with R134a refrigerant fluid and have a nominal cooling capacity of \SI{56}{\watt} in ASHRAE low back pressure (LBP) test condition (\SI{23.3}{\celsius} evaporating temperature, \SI{54.4}{\celsius} condensing temperature). This test condition was also chosen for the running-in tests.
+Three tests were run for each compressor unit, with the first one being considered the running-in test, and the second and third ones being considered reference tests, with the unit already ran-in. For these compressor units, each test was run for \SI{24}{\hour} in ASHRAE LBP condition, since this is one of the industry standard conditions for compressor testing, with maximum deviation of $\pm\SI{0.01}{\bar}$ and $\pm\SI{0.001}{bar}$ from the discharge and suction pressure references, respectively. All measurements were taken at a rate of 1 sample per minute, with the RMS, kurtosis, and variance of the electric current and of the vibration estimated from \SI{1}{\second} of consecutive measurements performed at a sampling rate of $F_s$ = \SI{25.6}{\kilo\hertz}, such that:
+\begin{equation*}
+    x_{\text{RMS}}=\sqrt{\frac{1}{F_s}\sum_{i=1}^{F_s}|x_{\text{HF},i}|^2}\; ;
+\end{equation*}
+\begin{equation*}
+    x_{\text{Kur}}=F_s\frac{\sum\limits_{i=1}^{F_s}(x_{\text{HF},i}-\bar{x}_{\text{HF}})^4}{\left[ \sum\limits_{i=1}^{F_s}(x_{\text{HF},i}-\bar{x}_{\text{HF}})^2 \right]^2}\; ;\; \text{and}
+\end{equation*}
+\begin{equation*}
+    x_{\text{Var}}=\frac{1}{F_s-1}\sum\limits_{i=1}^{F_s}(x_{\text{HF},i}-\bar{x}_{\text{HF}})^2,
+\end{equation*}
+where $x_{HF_i}$ is the $i^{th}$ element of an array with \SI{1}{\second} of high-frequency measurements, $\bar{x}_{\text{HF}}$ is the mean value of the array, and $x_{\text{RMS}}$, $x_{\text{Kur}}$ and $x_{\text{Var}}$ are the RMS, kurtosis and variance of the array, respectively. Table~\ref{tab:medicoes} summarizes the experimental data obtained in the tests and Figure~\ref{fig:TimeSeriesProc} illustrates the acquisition and the processing of physical quantities into time series.
+
+\begin{table}[htb]
+\begin{center} \small
+\begin{threeparttable}
+\caption{Summary of the experimental data.}
+\begin{tabular}{|c|c|} 
+\hline
+Number of units                                                         & 4                                                                                                                                                                                               \\ \hline
+Tests per unit                                                          & 3                                                                                                                                                                                               \\ \hline
+Test length {[}h{]}                                                     & 24                                                                                                                                                                                              \\ \hline
+\begin{tabular}[c]{@{}c@{}}Measured quantities\end{tabular}           & \begin{tabular}[c]{@{}c@{}}Lateral vibration\tnote{*}\\ Longitudinal vibration\tnote{*}\\ Electric current\tnote{*}\\ Mass flow rate\end{tabular} \\ \hline
+\begin{tabular}[c]{@{}c@{}}Controlled variables\end{tabular}          & \begin{tabular}[c]{@{}c@{}}Suction pressure\\ Discharge pressure\\ Suction temperature\\ Room temperature\end{tabular} \\ \hline
+\begin{tabular}[c]{@{}c@{}}Test condition\end{tabular}          & \begin{tabular}[c]{@{}c@{}}ASHRAE LBP\end{tabular} \\ \hline
+\begin{tabular}[c]{@{}c@{}}Samples per quantity per test\end{tabular} & 1440                                                                                                                                                                                            \\ \hline
+\end{tabular}
+\label{tab:medicoes}
+\begin{tablenotes}\footnotesize
+\item[*] RMS, kurtosis, and variance estimated from high-frequency measurements
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{fig12.pdf}    % The printed column width is 8.4 cm.
+\caption{Schematic of the acquisition and the processing of experimental data into time series.}
+\label{fig:TimeSeriesProc}
+\end{center}
+\end{figure}
+
+\subsection{Preliminary Running-in Analysis}\label{subsec:PreliminaryRunningInAnalysis}
+
+The time series obtained in each test were compared in search of visible patterns that differentiate the running-in tests from the reference tests. While the tests for each unit eventually converge to the same steady-state value, there is a clear difference in the settling time of the RMS and variance of the current, which takes longer to reach steady state in the running-in tests. Figure~\ref{fig:RMSCurrentA} presents the RMS current for all tests performed, with emphasis on the settling instant of the signals in running-in tests.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{fig13.pdf}    % The printed column width is 8.4 cm.
+\caption{RMS value of the electric current in tests with compressors during and after the running-in process.} 
+\label{fig:RMSCurrentA}
+\end{center}
+\end{figure}
+
+The data show that the RMS current of the devices in the running-in period reaches steady state at significantly different instants for each unit, while the behavior among the different units in reference tests is quite similar, as shown in Figure~\ref{fig:RMSCurrentA}. While Units A1 and A3 reach steady state in running-in tests earlier (about  \SI{5}{\hour} and about \SI{6}{\hour}, respectively), Units A2 and A4 reach steady state only in the latter half of the test around \SI{12}{\hour} and around \SI{12.5}{\hour}, respectively). It is also noticeable in the signals that for Units A1 and A3, the convergence to the steady-state value in running-in tests is smoother than that for Units A2 and A4. Aside from the electric current, no visible signs of the running-in process were identified in the other measured quantities.
+
+Considering the close relation between running-in and power consumption, such variations in the settling time and curve format might be strong indicators of the phenomenon. In addition, the data corroborate the hypothesis that the usual running-in method in the compressor industry is not completely appropriate for all compressor models, as it does not fit the large variance in running-in duration among different units of a single model. Since the transient of features related to the electric current is longer in running-in tests, the algorithmically detected transitions should either reflect those observations, if the current is a good representative of the running-in process, or be larger than those preliminarily defined, if the settling of the current metrics is only a part of the phenomenon. In a conservative fashion, these preliminary transition instants were defined as \SI{4}{\hour} for Units A1 and A3; and \SI{10}{\hour} for Units A2 and A4. These values were considered for setting Criterion \ref{crit:maior10} for running-in ensemble pruning, described in Subsection~\ref{subsec:EnsemblePruning}.
+
+After performing all experimental tests and preliminary analyses, the resulting time series were used as input for the unsupervised-ensemble-based method proposed in Section~\ref{sec:Method}. The results obtained are described in the next section.
+
+\section{Results}\label{sec:Results}
+
+This section presents the interpretation of the unsupervised representations developed by applying the method proposed in Section~\ref{sec:Method} in the experimental test data described in Section~\ref{sec:ExperimentalAnalysis}. As discussed in Sections 1 and 2, there are currently no baseline methods in the literature which allow for evaluation and detection of the end of the running-in period in machinery. As such, the results of the post-pruning ensemble were compared among themselves, and the quality of the detections was defined based on the number of detections by feature and by hyperparameter choice and on the instant of the detected running-in to tribological steady state transitions.
+
+Subsection~\ref{subsec:DetectionOfStateTransition} details the final ensemble obtained and the steady state transition instants detected by the models. Subsection~\ref{subsec:FeatureInterpretation} describes the feature interpretation process, inferring the link among running-in detection, physical quantities and transition detection parameters.
+
+\subsection{Running-in to steady state Transitions}\label{subsec:DetectionOfStateTransition}
+
+In order to fit the natural transient period of the compressor model while maintaining a low computational cost, the following processing parameter space was chosen:
+
+\begin{itemize}
+    \item $M = \{1, 5, 10, 20, 40, ..., 180\}$ samples;
+    \item $N = \{1, 2, ..., 7\}$ samples;
+    \item $D = \{1, 3, 5, 10, 20, 40, ..., 180\}$ samples.
+\end{itemize}
+
+In addition, based on the natural transient period, and because the first hour of test measurements is not considered for this analysis, the maximal time length of the sample vector was defined as \SI{3}{\hour}. As such, parameter combinations that resulted in a time larger than that limit were not considered in the ensemble setup. 
+
+The number of clusters $\bm{k}$ was defined by applying the elbow method for a combination of datasets generated by the lowest and highest values of each of the data processing parameters $M$, $N$, and $D$. For all datasets, the value of $\bm{k} = 3$ appeared as the elbow point of the sum of squared error curve. As consequence, the value $\bm{k} = 3$ was chosen for the clustering algorithms. For the transition detection algorithm itself, the parameter space for the window $W$ was defined as \SI{30}{\minute}, \SI{60}{\minute}, \SI{90}{\minute}, and \SI{120}{\minute}; and the set of thresholds $l\textsubscript{U}$ was defined as \{0, 0.1, ..., 0.9\} for Method \ref{met:supThr} and $l\textsubscript{L}$ as \{0.1, 0.2, ..., 1\} for Method \ref{met:lowThr}. % The search results, as well as the process for interpretation and choice of features related to the running-in are presented in Section~\ref{sec:Results}.
+
+Since all combinations of parameters were considered in the setup of the ensemble, the implementation of the method resulted in $4\,428\,000$ detection results. After pruning the ensemble with the method described in Subsection~\ref{subsec:EnsemblePruning}, a total of $3\,911$ combinations were considered relevant. Since each of these combinations results in detection instants for the units, the entire set of outcomes might be analyzed as a group. One of the metrics used to evaluate the quality of the ensemble models was the probability of transition at a given instant, given by the probability density function (PDF) of the results. The PDF was estimated using kernel density estimation with a bandwidth of \SI{0.5}{\hour}, defined according to the expected error for the detection of running-in transitions. Figure~\ref{fig:Hist_Pdf_Geral_A} presents the histogram (left axes) and the estimated PDF (right axes) for Units A1 to A4.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.85\textwidth]{fig14.pdf}    % The printed column width is 8.4 cm.
+\caption{Histograms and estimated PDFs of the detected running-in to steady state transitions.} 
+\label{fig:Hist_Pdf_Geral_A}
+\end{center}
+\end{figure}
+
+The estimated PDFs show that, for every unit, there is a significantly more probable transition instant. In addition, this most probable transition instant fits the preliminary analysis of the RMS current value, thus indicating that its settling time is probably related to the running-in duration. 
+
+A more detailed analysis of the effects of feature, parameters, and method choices was made possible using probability estimation from the detection results of the ensemble and comparing the results from different combinations of parameters. This analysis is presented in Subsection~\ref{subsec:FeatureInterpretation}.
+
+\subsection{Feature Interpretation}\label{subsec:FeatureInterpretation}
+
+Figure~\ref{fig:pieA} presents an overview of the parameters and features that resulted in possibly meaningful running-in detection models. The percentage of valid models was established as a quantitative metric of how well a given parameter set was able to distinguish patterns in the data in relation to the other choices, since a lower percentage means that fewer combinations using this choice fit the problem after pruning. This metric is given by the ratio of post-pruning models which employed a given choice of processing parameter, of clustering method or of physical quantity and the total number of ensemble elements, and is based on the assumption that the pruning process filters out the elements which are most incongruent with the purpose of detecting running-in to tribological steady state transitions.
+
+\begin{figure}[htb] 
+\begin{center}
+\includegraphics[width=\textwidth]{fig15.pdf}    % The printed column width is 8.4 cm.
+\caption{Clustering algorithms, physical quantities, transition detection methods, and processing parameters from models remaining in the ensemble after pruning.} 
+\label{fig:pieA}
+\end{center}
+\end{figure}
+
+The analysis shows that the majority (47\%) of valid detection models used the proposed MRBF kernel $k$-means algorithm, almost twice as the second best algorithm (DTW-AHC, 26\%). It also shows that a large percentage (98\%) of the models was based on the RMS ($I\textsubscript{RMS}$) and variance ($I\textsubscript{Var}$) values of the electric current. The remaining small portion of successful models are based on kurtosis from the electric current ($I\textsubscript{Kur}$) and from vibration on the lateral axis ($V\textsubscript{Lat,Kur}$) of the compressor, and on mass flow data ($\dot{m}$).
+
+Besides the number of valid transitions detected, the addition of the MRBF kernel as a clustering method for the ensemble models also had a significant impact on the estimated transition instant. As shown in Figure~\ref{fig:clusterCompare}, which presents the PDF of the transition instant of an ensemble with each of the clustering algorithms evaluated, when considering only $k$-means and RBF kernel $k$-means as clustering methods, the ensemble produces multiple peaks in the probability of detection for units A1 and A4, including some in the first and last hours of testing, which are not significant for the running-in phenomenon. With the addition of the proposed MRBF kernel, the ensemble becomes able to detect the transition in a single peak, with less deviation. The same is true when comparing the MRBF kernel $k$-means models with the DTW-AHC ones, which is a state-of-the-art clustering method for time series. In this comparison, the DTW-AHC produces two detection peaks at the beginning of the test with unit A1, and the MRBF kernel method produces a single peak, in congruence with the second one of the former algorithm. In addition to the fact that MRBF kernel produced the most amount of valid detections, it provides an advantage in the decision process for ending the running-in procedure and starting the tests, as the ensemble as a whole provides clearer guidelines for this purpose.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=14cm]{fig16.pdf}    % The printed column width is 8.4 cm.
+\caption{Probability of transition using each clustering method.}
+\label{fig:clusterCompare}
+\end{center}
+\end{figure}
+
+The influence of the physical quantity choice in the detection instant can be seen in Figure~\ref{fig:PDF_Grandeza}, which shows the probability of steady state, obtained by integrating the PDF for the validated choices. As shown, for all units, the $I\textsubscript{RMS}$ and $I\textsubscript{Var}$ show similar results, whereas the other methods show considerably different results in Units A1 and A4. In addition, for Unit A1, the $I\textsubscript{Kur}$ and $\dot{m}$ methods only reached a high probability (over 0.75) of steady state around \SI{20}{\hour} of testing, and the same happens for the $\dot{m}$ and $V\textsubscript{Lat,Kur}$ methods in Unit A4, suggesting that this choice might be more suited for more conservative applications. However, given that these methods represent less than 3\% of the accepted results, they could also be seen as less confident methods, and this difference in confidence should be taken into account when choosing features for running-in detection.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=14cm]{fig17.pdf}    % The printed column width is 8.4 cm.
+\caption{Estimated probability of tribological steady state in running-in tests, by physical quantity.} 
+\label{fig:PDF_Grandeza}
+\end{center}
+\end{figure}
+
+The results also show that the majority of the remaining models in the ensemble after pruning required filtering with window length between 40 and 80 samples, which might be due to the noise in the raw data, and that most detections occur with values of $N$ lower than 3 elements. The impact of the choice of $N$ parameter can be seen in the Unit A1 running-in detection, as presented in Figure \ref{fig:CDF_N}. As shown in the figure, the choice of $N=1$ resulted in an earlier rise in the probability of steady state, while other choices of $N$ were of similar behaviour in terms of probability of steady state over time among themselves.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=14cm]{fig18.pdf}    % The printed column width is 8.4 cm.
+\caption{Estimated probability of tribological steady state in the running-in test of Unit A1 based on remaining ensemble models after pruning, by each $N$ choice.} 
+\label{fig:CDF_N}
+\end{center}
+\end{figure}
+
+By combining both the parameters $N$ and $D$, it is possible to evaluate which window lengths, given by $(N-1)DT_s$, produced most of the valid models. Figure \ref{fig:hist_WindowLength} shows the frequency of detections by sample window length, which in addition to the proportion of valid methods by parameter presented in Figure \ref{fig:pieA} led to the conclusion that mid-to-low range values of $N$ (between 2 and 4 samples) combined with delay values $D<20$ samples resulted in windows with most of the valid models. 
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{fig19.pdf}    % The printed column width is 8.4 cm.
+\caption{Histogram of the number of remaining ensemble models after pruning by sample window length.} 
+\label{fig:hist_WindowLength}
+\end{center}
+\end{figure}
+
+Analyzing the transition detection methods performed on the clustered data, models that applied Methods \ref{met:supThr}.a and \ref{met:lowThr}.b were responsible for most accepted detection instants (74\% and 15\%, respectively). These methods were then chosen as more suitable for running-in detection when using $I\textsubscript{RMS}$ and $I\textsubscript{Var}$ as indicators. When $\dot{m}$ is used as an indicator, the only method that could extract valid transitions from it was Method \ref{met:lowThr}.a. Using both $\dot{m}$ and $V\textsubscript{Lat,Kur}$ as indicators should be applied with caution, as they are less likely to produce valid results than the formerly cited choices.
+
+\section{Conclusion}\label{sec:Conclusion}
+
+To properly evaluate compressors in performance tests, it is necessary to ensure that the running-in period of a given unit has ended. In order to virtually sense this phenomenon and reduce the preparation time of hermetic reciprocating compressors while ensuring test reliability, this work proposes a data-driven unsupervised approach to the running-in process. This approach is comprised of an ensemble of transition detection models, with each ensemble component processing and clustering time series from different physical quantities with different parameter combinations. The data for this analysis were obtained after experimental tests specifically designed for running-in evaluation, acquiring data from physical quantities that, according to the literature, could be related to the phenomenon. Since the ensemble was setup with several not necessarily meaningful parameter combinations, a pruning method based on the running-in literature was devised, allowing not only the detection of meaningful transitions but also the interpretation of running-in related features.
+
+After setting up the parameter space based on the possible time dynamics of the phenomenon and on the distribution of the processed time series dataset, the method was applied to experimental data of four compressor units, with \num{3911} detection models comprising the final ensemble after pruning. Analysis of the collective detection results showed a general consensus on the transition from running-in to steady state, with most detections pointing to transitions between \SI{5}{\hour} and \SI{15}{\hour} and the consensus pointing to different transition instants for each unit.
+
+The interpretation of the physical quantities and parameter combinations of the models remaining after pruning showed that most of these models were based on the variance and RMS values extracted from the electric current. This result suggests that these quantities are more likely related to the running-in process than the mass flow rate generated by the compressor operation, the kurtosis of the electric current, and the vibration of the compressor, which were considered in the ensemble setup but resulted in few to no detection models after pruning. This analysis also showed that the novel application of the Mahalanobis RBF kernel for clustering produced the large majority of meaningful results, resulting in more meaningful models than the AHC and DTW-AHC methods, which were less reliable for pointing out the transitions, and than the $k$-means and the original RBF kernel, which could not consistently detect transitions that fit the end of the running-in phenomenon.
+
+In the compressor industry, the method proposed in this paper can support experimental validation of device models during their first hours of operation, mapping their expected running-in behavior to real experimental data in a nondestructive fashion. It can also be employed for guaranteeing steady state behavior in critical applications, such as performance tests and specialized commercial applications which might require the devices to already be in tribological steady state. Because the proposed method does not require tuning of model parameters, since the ensemble is set with a wide parameter space, it can also be applied in other cases of single-occurrence phenomenon detection in reciprocating machinery, such as persistent faults and destructive wear, requiring only a re-evaluation of the pruning criteria. 
+
+Following the proof of concept provided in this paper, future work will explore the application of these techniques in different compressor models, with a larger number of units in order to further narrow the uncertainty around the detection of the end of the running-in period. From these results, future methods will also be developed for online identification of the transition from running-in to tribological steady state, with great potential for increasing the reliability of compressor test results.
+
+\section*{Declarations}
+
+\subsection*{Competing Interests}
+Rodolfo C. C. Flesch reports financial support was provided by National Council for Scientific and Technological Development. Gabriel Thaler reports financial support was provided by Coordination of Higher Education Personnel Improvement. Rodolfo C. C. Flesch reports financial support was provided by Nidec Global Appliance. If there are other authors, they declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\subsection*{Author Contribution}
+\textbf{Gabriel Thaler}: Conceptualization, Software, Methodology, Data Curation, Writing – original draft. \textbf{Ahryman S. B. de S. Nascimento}: Visualization, Project administration. \textbf{Antonio L. S. Pacheco}: Formal analysis, Writing – review \& editing. \textbf{Rodolfo C. C. Flesch}: Supervision, Resources, Funding acquisition, Project administration, Writing – review \& editing.
+
+\subsection*{Data Availability Statement}
+The data that support the findings of this study are not openly available due to reasons of sensitivity and are available from the corresponding author upon reasonable request.
+
+\subsection*{Compliance with Ethical Standards}
+The authors declare this work was done in compliance with the accepted principles of ethical and professional conduct, and that there is no conflict of interest.
+
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references.bib}
+
+\end{document}
